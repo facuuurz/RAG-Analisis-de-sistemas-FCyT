@@ -10,7 +10,7 @@ from langchain_chroma import Chroma
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 
 # CONFIGURACION DE LA API KEY PUBLICA (utilizamos una cuenta de prueba)
-os.environ["GOOGLE_API_KEY"] = "GOOGLE_API_KEY"
+os.environ["GOOGLE_API_KEY"] = "AIzaSyAthANhprZ4ruhfvD0xSUu75mUglPYZj2Y"
 
 # CARGAR EL MODELO DE EMBEDDINGS
 print("\nIniciando el sistema RAG...")
@@ -75,8 +75,9 @@ else:
 print("\nIniciando el modelo de lenguaje (Gemini Flash Latest)...")
 llm = ChatGoogleGenerativeAI(
     model="gemini-flash-latest",
-    temperature=0 # Temperatura 0 para evitar alucinaciones en datos duros
+    temperature=0.0 # Se eleva la creatividad al 80%
 )
+
 
 # El "prompt invisible" que mencionaste en tu TP
 from langchain_core.prompts import PromptTemplate
@@ -101,7 +102,7 @@ PROMPT = PromptTemplate(
 # 4. CREACIÓN DE LA CADENA DE RECUPERACIÓN (Retrieval)
 from langchain_classic.chains import RetrievalQA
 
-# k=2 como definiste en la recuperación de tu TP
+# k=2 para traer mucha más información de la base de datos
 qa_chain = RetrievalQA.from_chain_type(
     llm=llm,
     chain_type="stuff",
