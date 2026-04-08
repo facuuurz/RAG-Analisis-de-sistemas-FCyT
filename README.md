@@ -54,7 +54,7 @@ El sistema utiliza la API de Google Gemini, por lo que necesita sus credenciales
    ```python
    os.environ["GOOGLE_API_KEY"] = "(tu clave)"
    ```
-   Asegúrate de que asginada una API KEY válida de Google AI Studio. 
+   Asegúrate de haber asignado una API KEY válida de Google AI Studio. 
 
 ## 6. Ejecución del Sistema
 
