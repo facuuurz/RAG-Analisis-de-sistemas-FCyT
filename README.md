@@ -44,10 +44,7 @@ El archivo `Requerimentos.txt` contiene todas las librerías necesarias para cor
 
 ## 4. Estructura de Datos (Carpeta `Datos`)
 
-1. Asegúrate de que exista una carpeta llamada `Datos` dentro de la carpeta raíz del proyecto.
-2. Coloca todos los archivos PDF académicos de la FCyT que quieres que el asistente lea dentro de esa carpeta `Datos`.
-   > [!NOTE]
-   > Si la carpeta ya incluye PDFs dentro, simplemente déjala como está.
+Asegúrate de que exista una carpeta llamada `Datos` dentro de la carpeta raíz del proyectoy que dentro de la misma estén los PDF académicos cargados..
 
 ## 5. Configurar la Clave de API (API Key)
 
