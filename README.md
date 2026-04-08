@@ -79,5 +79,5 @@ Una vez realizados todos los pasos anteriores, estás listo para iniciar el sist
  (Escribí 'salir' para terminar el programa)
 ==================================================
 ```
-Ya puedes escribir tus preguntas sobre la FCyT y el Asistente Virtual responderá.
+Ya puedes escribir tus preguntas sobre las materias de las carreras de Sistemas en la FCyT y el Asistente Virtual responderá.
 
