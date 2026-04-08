@@ -42,7 +42,7 @@ El archivo `Requerimentos.txt` contiene todas las librerías necesarias para cor
    ```
    *(Esto puede tardar unos minutos)*
 
-## 4. Estructura de Datos (Carpeta `Datos`)
+## 4. Estructura de Datos
 
 Asegúrate de que exista una carpeta llamada `Datos` dentro de la carpeta raíz del proyectoy que dentro de la misma estén los PDF académicos cargados..
 
