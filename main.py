@@ -30,7 +30,7 @@ except:
 
     # RUTAS DE LAS CARPETAS (Asegurate de que existan)
 CARPETA_DATOS = "./Datos"
-CARPETA_DB = "./DB_RAG_3"
+CARPETA_DB = "./DB_RAG"
 
 # 1. CARGA Y FRAGMENTACIÓN (Solo si la BD no existe aún)
 if not os.path.exists(CARPETA_DB) or not os.listdir(CARPETA_DB):
