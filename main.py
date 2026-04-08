@@ -10,7 +10,9 @@ from langchain_chroma import Chroma
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 
 # CONFIGURACION DE LA API KEY PUBLICA (utilizamos una cuenta de prueba)
-os.environ["GOOGLE_API_KEY"] = "AIzaSyAthANhprZ4ruhfvD0xSUu75mUglPYZj2Y"
+os.environ["GOOGLE_API_KEY"] = "InserteAPIKEY"
+ # API KEY de prueba creada con cuenta de prueba exclusiva para el TP: AIzaSyAGZXCUQZpgs43MThN16M8a6BhK03kTJWs
+ # Se puede usar una propia
 
 # CARGAR EL MODELO DE EMBEDDINGS
 print("\nIniciando el sistema RAG...")
@@ -28,11 +30,11 @@ except:
 
 
 
-    # RUTAS DE LAS CARPETAS (Asegurate de que existan)
+    # RUTAS DE LAS CARPETAS
 CARPETA_DATOS = "./Datos"
 CARPETA_DB = "./DB_RAG"
 
-# 1. CARGA Y FRAGMENTACIÓN (Solo si la BD no existe aún)
+#  CARGA Y FRAGMENTACIÓN
 if not os.path.exists(CARPETA_DB) or not os.listdir(CARPETA_DB):
     print(f"\nProcesando PDFs desde la carpeta '{CARPETA_DATOS}'...")
     
@@ -41,7 +43,7 @@ if not os.path.exists(CARPETA_DB) or not os.listdir(CARPETA_DB):
     documentos = loader.load()
     print(f"Se cargaron {len(documentos)} páginas en total.")
 
-    # Fragmentación (Chunking) según tu TP
+    # Fragmentación
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=150,
@@ -50,7 +52,7 @@ if not os.path.exists(CARPETA_DB) or not os.listdir(CARPETA_DB):
     chunks = text_splitter.split_documents(documentos)
     print(f"Documentos divididos en {len(chunks)} fragmentos.")
 
-    # 2. ALMACENAMIENTO VECTORIAL (ChromaDB)
+    # ALMACENAMIENTO VECTORIAL (ChromaDB)
     print("\nCreando base de datos vectorial en Chroma (guardando por lotes para evitar límites de uso)...")
     vectorstore = Chroma(persist_directory=CARPETA_DB, embedding_function=embeddings)
     
@@ -71,15 +73,15 @@ else:
         embedding_function=embeddings
     )
 
-# 3. CONFIGURACIÓN DEL LLM Y EL PROMPT (Generación)
+# CONFIGURACIÓN DEL LLM Y EL PROMPT
 print("\nIniciando el modelo de lenguaje (Gemini Flash Latest)...")
 llm = ChatGoogleGenerativeAI(
     model="gemini-flash-latest",
-    temperature=0.0 # Se eleva la creatividad al 80%
+    temperature=0.0
 )
 
 
-# El "prompt invisible" que mencionaste en tu TP
+# El "prompt invisible"
 from langchain_core.prompts import PromptTemplate
 
 template_rag = """Sos un asistente virtual académico de la FCyT. Tu tarea es responder dudas de los alumnos sobre las carreras de Sistemas.
@@ -99,10 +101,10 @@ PROMPT = PromptTemplate(
     input_variables=["context", "question"]
 )
 
-# 4. CREACIÓN DE LA CADENA DE RECUPERACIÓN (Retrieval)
+# CREACIÓN DE LA CADENA DE RECUPERACIÓN
 from langchain_classic.chains import RetrievalQA
 
-# k=2 para traer mucha más información de la base de datos
+# k = 2 para traer mucha más información de la base de datos
 qa_chain = RetrievalQA.from_chain_type(
     llm=llm,
     chain_type="stuff",
@@ -111,7 +113,7 @@ qa_chain = RetrievalQA.from_chain_type(
     return_source_documents=True # Para saber de qué PDF sacó la info
 )
 
-# 5. BUCLE INTERACTIVO PARA EVALUAR TUS 18 PREGUNTAS
+# BUCLE INTERACTIVO PARA EVALUAR LAS PREGUNTAS
 print("\n" + "="*50)
 print(" SISTEMA RAG ACTIVO - LISTO PARA PREGUNTAS ")
 print(" (Escribí 'salir' para terminar el programa)")
@@ -141,6 +143,6 @@ while True:
     # Pausa de protección para rate limits (Asegura no exceder 15 por minuto)
     time.sleep(4)
     
-    # (Opcional) Mostrar de qué documentos sacó la información
+    # Muestra de qué documentos sacó la información (Metadatos)
     fuentes = set([doc.metadata.get('source', 'Desconocido') for doc in resultado['source_documents']])
     print(f"Fuentes consultadas: {', '.join(fuentes)}")
