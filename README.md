@@ -1,37 +1,83 @@
-# Asistente Académico FCyT - Sistema RAG
+# Guía de Instalación y Uso: Asistente Virtual Académico FCyT (RAG)
 
-Este es un sistema de Inteligencia Artificial basado en RAG (Retrieval-Augmented Generation) diseñado para responder preguntas sobre las carreras de Sistemas de la FCyT basándose estrictamente en los documentos y resoluciones oficiales.
+Este documento explica paso a paso cómo una persona sin conocimientos previos del proyecto puede configurarlo y ejecutarlo en su computadora desde cero.
 
-## Requisitos Previos
+## 1. Requisitos Previos
 
-1. **Tener Python instalado:** debes tener Python instalado en tu computadora. Desde Windows, podes descargarlo e instalarlo desde [python.org](https://www.python.org/downloads/). Marcá la opción "Add Python to PATH" durante la instalación.
-2. **Conseguir una API KEY de Google:** 
-   - ingresa a [Google AI Studio](https://aistudio.google.com/app/apikey).
-   - inicia sesión con tu cuenta de Google.
-   - crea una API KEY y cópialo.
+Antes de comenzar, asegúrate de tener instalado en tu computadora:
 
-## Guía de Instalación y Uso
+1. **Python**: Necesitas Python 3.9 o superior. Puedes descargarlo e instalarlo desde [python.org](https://www.python.org/downloads/).
+   > [!IMPORTANT]
+   > Durante la instalación en Windows, asegúrate de marcar la casilla que dice **"Add Python to PATH"** (Añadir Python al PATH) antes de pulsar "Install Now".
 
-### Paso 1: Instalar las dependencias
-El programa usa librerías especiales para leer PDFs e Inteligencia Artificial. Para instalarlas, abrí la terminal, desde la carpeta de este proyecto, y ejecuta este comando:
+## 2. Preparación del Proyecto
 
-```bash
-pip install -r Requerimentos.txt
+### Clonar o descargar el proyecto
+1. Descarga esta carpeta del proyecto (`RAG-Analisis-de-sistemas-FCyT`) y colócala en tu escritorio o documentos.
+2. Abre una terminal (Símbolo del sistema `cmd` o PowerShell) y navega hasta la carpeta del proyecto. Por ejemplo:
+   ```bash
+   cd ruta\hasta\la\carpeta\RAG-Analisis-de-sistemas-FCyT
+   ```
+
+### Crear un Entorno Virtual (Recomendado)
+Para evitar conflictos con otras cosas que tengas instaladas, es mejor aislar este proyecto.
+1. En la terminal y dentro de la carpeta del proyecto, ejecuta:
+   ```bash
+   python -m venv venv
+   ```
+2. **Activa el entorno virtual**:
+   - En Windows (Command Prompt o PowerShell):
+     ```bash
+     venv\Scripts\activate
+     ```
+   - *Nota: Sabrás que funcionó porque verás un `(venv)` al principio de la línea en tu terminal.*
+
+## 3. Instalación de Dependencias
+
+El archivo `Requerimentos.txt` contiene todas las librerías necesarias para correr modelos de Google, interactuar con PDF y manejar la base de datos vectorial ChromaDB.
+
+1. Con el entorno activado, instala todo ejecutando:
+   ```bash
+   pip install -r Requerimentos.txt
+   ```
+   *(Esto puede tardar unos minutos)*
+
+## 4. Estructura de Datos (Carpeta `Datos`)
+
+1. Asegúrate de que exista una carpeta llamada `Datos` dentro de la carpeta raíz del proyecto.
+2. Coloca todos los archivos PDF académicos de la FCyT que quieres que el asistente lea dentro de esa carpeta `Datos`.
+   > [!NOTE]
+   > Si la carpeta ya incluye PDFs dentro, simplemente déjala como está.
+
+## 5. Configurar la Clave de API (API Key)
+
+El sistema utiliza la API de Google Gemini, por lo que necesita sus credenciales.
+1. Abre el archivo `main.py` con cualquier editor de texto o IDE (como VS Code).
+2. En la línea `13`, verás lo siguiente:
+   ```python
+   os.environ["GOOGLE_API_KEY"] = "(tu clave)"
+   ```
+   Asegúrate de que asginada una API KEY válida de Google AI Studio. 
+
+## 6. Ejecución del Sistema
+
+Una vez realizados todos los pasos anteriores, estás listo para iniciar el sistema:
+
+1. En la terminal (con el entorno `(venv)` aún activado), ejecuta:
+   ```bash
+   python main.py
+   ```
+
+### ¿Qué sucederá a continuación?
+- **Primer inicio (Creación de Base de Datos)**: Si es la primera vez que corre, el programa empezará a leer todos los PDFs de la carpeta `Datos`, los dividirá en fragmentos y los guardará en una carpeta nueva llamada `DB_RAG_3`. Verás mensajes indicando que guarda "en lotes" y hace pausas (para proteger la cuota de la API). **Ten paciencia, este proceso puede demorar varios minutos.**
+- **Inicios posteriores**: Si la carpeta `DB_RAG_3` ya existe, el sistema se la salteará conectándose instantáneamente a la base de datos guardada.
+
+¡Listo! Cuando aparezca en consola el cuadro:
+```text
+==================================================
+ SISTEMA RAG ACTIVO - LISTO PARA PREGUNTAS
+ (Escribí 'salir' para terminar el programa)
+==================================================
 ```
+Ya puedes escribir tus preguntas sobre la FCyT y el Asistente Virtual responderá.
 
-### Paso 2: Agregar tus PDFs
-Dentro de este proyecto existe una carpeta llamada "Datos". Si queres agregar nuevos planes de estudio o resoluciones, simplemente arrastra tus archivos dentro de la carpeta.
-
-### Paso 3: Ejecutar el Asistente
-En la misma consola, ejecuta el programa principal con este comando:
-
-```bash
-python main.py
-```
-
-1. **Ingreso de Clave:** al instante, la consola te pedirá que ingreses tu API KEY de Google.
-2. **Procesamiento Base de Datos:** si es la primera vez que lo ejecutas, el script leerá los PDFs en la carpeta "Datos". Puede darse una demora.
-3. **Comenza a preguntar** cuando veas la pantalla "SISTEMA RAG ACTIVO - LISTO PARA PREGUNTAS", pasale tu duda y esperá la respuesta.
-
-### Cómo salir
-Cuando quieras dejar de usar el asistente, escribí "salir" o apretá las teclas "Ctrl + C" juntas.
