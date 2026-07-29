@@ -48,14 +48,12 @@ Asegúrate de que exista una carpeta llamada `Datos` dentro de la carpeta raíz 
 
 ## 5. Configurar la Clave de API (API Key)
 
-El sistema utiliza la API de Google Gemini, por lo que necesita sus credenciales.
-1. Abre el archivo `main.py` con cualquier editor de texto o IDE (como VS Code).
-2. En la línea `13`, verás lo siguiente:
-   ```python
-   os.environ["GOOGLE_API_KEY"] = "(tu clave)"
-   ```
-   Asegúrate de haber asignado una API KEY válida de Google AI Studio. 
+El sistema utiliza la API de Google Gemini y lee la clave desde una variable de entorno. Conseguí tu key gratis en Google AI Studio y, antes de ejecutar, definila en la terminal:
 
+```bash
+# PowerShell (Windows)
+$env:GOOGLE_API_KEY = "tu-api-key"
+```
 ## 6. Ejecución del Sistema
 
 Una vez realizados todos los pasos anteriores, estás listo para iniciar el sistema:
