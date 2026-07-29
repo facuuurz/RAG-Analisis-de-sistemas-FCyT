@@ -1,78 +1,58 @@
-# Guía de Instalación y Uso: Asistente Virtual Académico FCyT (RAG)
-
-Este documento explica paso a paso cómo una persona sin conocimientos previos del proyecto puede configurarlo y ejecutarlo en su computadora desde cero.
-
-## 1. Requisitos Previos
-
-Antes de comenzar, asegúrate de tener instalado en tu computadora:
-
-1. **Python**: Necesitas Python 3.9 o superior. Puedes descargarlo e instalarlo desde [python.org](https://www.python.org/downloads/).
+# Installation and Usage Guide: FCyT Academic Virtual Assistant (RAG)
+This document explains, step by step, how someone with no prior knowledge of the project can set it up and run it on their computer from scratch.
+## 1. Prerequisites
+Before you start, make sure the following is installed on your computer:
+1. **Python**: You need Python 3.9 or later. You can download and install it from [python.org](https://www.python.org/downloads/).
    > [!IMPORTANT]
-   > Durante la instalación en Windows, asegúrate de marcar la casilla que dice **"Add Python to PATH"** (Añadir Python al PATH) antes de pulsar "Install Now".
-
-## 2. Preparación del Proyecto
-
-### Clonar o descargar el proyecto
-1. Descarga esta carpeta del proyecto (`RAG-Analisis-de-sistemas-FCyT`) y colócala en tu escritorio o documentos.
-2. Abre una terminal (Símbolo del sistema `cmd` o PowerShell) y navega hasta la carpeta del proyecto. Por ejemplo:
+   > During installation on Windows, make sure to check the box that says **"Add Python to PATH"** before clicking "Install Now".
+## 2. Project Setup
+### Clone or download the project
+1. Download this project folder (`RAG-Analisis-de-sistemas-FCyT`) and place it on your desktop or in your documents.
+2. Open a terminal (Command Prompt `cmd` or PowerShell) and navigate to the project folder. For example:
    ```bash
-   cd ruta\hasta\la\carpeta\RAG-Analisis-de-sistemas-FCyT
+   cd path\to\the\folder\RAG-Analisis-de-sistemas-FCyT
    ```
-
-### Crear un Entorno Virtual (Recomendado)
-Para evitar conflictos con otras cosas que tengas instaladas, es mejor aislar este proyecto.
-1. En la terminal y dentro de la carpeta del proyecto, ejecuta:
+### Create a Virtual Environment (Recommended)
+To avoid conflicts with anything else you have installed, it is best to isolate this project.
+1. In the terminal, inside the project folder, run:
    ```bash
    python -m venv venv
    ```
-2. **Activa el entorno virtual**:
-   - En Windows (Command Prompt o PowerShell):
+2. **Activate the virtual environment**:
+   - On Windows (Command Prompt or PowerShell):
      ```bash
      venv\Scripts\activate
      ```
-   - *Nota: Sabrás que funcionó porque verás un `(venv)` al principio de la línea en tu terminal.*
-
-## 3. Instalación de Dependencias
-
-El archivo `Requerimentos.txt` contiene todas las librerías necesarias para correr modelos de Google, interactuar con PDF y manejar la base de datos vectorial ChromaDB.
-
-1. Con el entorno activado, instala todo ejecutando:
+   - *Note: You will know it worked because you will see `(venv)` at the beginning of the line in your terminal.*
+## 3. Installing Dependencies
+The `requirements.txt` file contains every library needed to run Google's models, work with PDFs, and manage the ChromaDB vector database.
+1. With the environment activated, install everything by running:
    ```bash
-   pip install -r Requerimentos.txt
+   pip install -r requirements.txt
    ```
-   *(Esto puede tardar unos minutos)*
-
-## 4. Estructura de Datos
-
-Asegúrate de que exista una carpeta llamada `Datos` dentro de la carpeta raíz del proyectoy que dentro de la misma estén los PDF académicos cargados..
-
-## 5. Configurar la Clave de API (API Key)
-
-El sistema utiliza la API de Google Gemini y lee la clave desde una variable de entorno. Conseguí tu key gratis en Google AI Studio y, antes de ejecutar, definila en la terminal:
-
+   *(This may take a few minutes)*
+## 4. Data Structure
+Make sure a folder named `Datos` exists inside the project's root folder, and that the academic PDFs are placed inside it.
+## 5. Configure the API Key
+The system uses the Google Gemini API and reads the key from an environment variable. Get your free key from Google AI Studio and, before running, set it in the terminal:
 ```bash
 # PowerShell (Windows)
-$env:GOOGLE_API_KEY = "tu-api-key"
+$env:GOOGLE_API_KEY = "your-api-key"
 ```
-## 6. Ejecución del Sistema
-
-Una vez realizados todos los pasos anteriores, estás listo para iniciar el sistema:
-
-1. En la terminal (con el entorno `(venv)` aún activado), ejecuta:
+## 6. Running the System
+Once all the previous steps are done, you are ready to start the system:
+1. In the terminal (with the `(venv)` environment still activated), run:
    ```bash
    python main.py
    ```
-
-### ¿Qué sucederá a continuación?
-- **Primer inicio (Creación de Base de Datos)**: Si es la primera vez que corre, el programa empezará a leer todos los PDFs de la carpeta `Datos`, los dividirá en fragmentos y los guardará en una carpeta nueva llamada `DB_RAG_3`. Verás mensajes indicando que guarda "en lotes" y hace pausas (para proteger la cuota de la API). **Ten paciencia, este proceso puede demorar varios minutos.**
-- **Inicios posteriores**: Si la carpeta `DB_RAG_3` ya existe, el sistema se la salteará conectándose instantáneamente a la base de datos guardada.
-
-¡Listo! Cuando aparezca en consola el cuadro:
+### What happens next?
+- **First run (Database creation)**: If it is the first time the program runs, it will read every PDF in the `Datos` folder, split them into chunks, and store them in a new folder called `DB_RAG_3`. You will see messages indicating that it saves "in batches" and pauses between them (to protect the API quota). **Be patient — this process can take several minutes.**
+- **Subsequent runs**: If the `DB_RAG_3` folder already exists, the system will skip that step and connect instantly to the stored database.
+Done! When the following box appears in the console:
 ```text
 ==================================================
  SISTEMA RAG ACTIVO - LISTO PARA PREGUNTAS
  (Escribí 'salir' para terminar el programa)
 ==================================================
 ```
-Ya puedes escribir tus preguntas sobre las materias de las carreras de Sistemas en la FCyT y el Asistente Virtual responderá.
-
+You can now type your questions about the courses of the Systems programs at FCyT, and the Virtual Assistant will answer.
