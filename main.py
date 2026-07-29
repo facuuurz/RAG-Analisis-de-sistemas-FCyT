@@ -9,10 +9,10 @@ from langchain_chroma import Chroma
 # Importaciones para los modelos de Google (Embeddings y LLM)
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 
-# CONFIGURACION DE LA API KEY PUBLICA (utilizamos una cuenta de prueba)
-os.environ["GOOGLE_API_KEY"] = "InserteAPIKEY"
- # API KEY de prueba creada con cuenta de prueba exclusiva para el TP: AIzaSyAGZXCUQZpgs43MThN16M8a6BhK03kTJWs
- # Se puede usar una propia
+# CONFIGURACION DE LA API KEY (se lee de una variable de entorno)
+api_key = os.environ.get("GOOGLE_API_KEY")
+if not api_key:
+    raise SystemExit("Falta la variable de entorno GOOGLE_API_KEY")
 
 # CARGAR EL MODELO DE EMBEDDINGS
 print("\nIniciando el sistema RAG...")
